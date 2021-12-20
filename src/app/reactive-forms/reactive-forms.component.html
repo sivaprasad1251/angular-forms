@@ -1,0 +1,67 @@
+
+
+<div class="form-text align-items-center container-fluid">
+    <h2>Register</h2>
+   
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm)">
+        <div class="row">
+        <div class="col-6">
+        <div class="form-group mb-3"> 
+            <label class="form-label">user name</label>
+            <input  type="text" [class.is-invalid]="registrationForm.get('userName')?.invalid && registrationForm.get('userName')?.touched" 
+            formControlName="userName"  class="form-control" required="">
+           <!--<small class="text-danger" [class.d-none]="registrationForm.get('userName')?.valid || registrationForm.get('userName')?.untouched">user name is required</small>-->
+           <div *ngIf="registrationForm.get('userName')?.invalid && registrationForm.get('userName')?.touched">
+               <small class="text-danger" *ngIf="registrationForm.get('userName')?.errors?.required">user name is required</small>
+               <small class="text-danger" *ngIf="registrationForm.get('userName')?.errors?.minlength">user name must be atleast 3 characters</small>
+               <small class="text-danger" *ngIf="registrationForm.get('userName')?.errors?.forbiddenName">{{registrationForm.get('userName')?.errors?.forbiddenName.value}}:user name is not allowed</small>
+           </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">password</label>
+            <input type="password" formControlName="password" class="form-control" required>
+            
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">confirm password</label>
+            <input type="password" formControlName="confirmPassword" class="form-control" required>
+            
+        </div>
+
+        <input [disabled]="registrationForm.invalid" type="submit" class="btn btn-primary" name="submit" value="submit">
+    </div>
+    <div class="col-6">
+        <div formGroupName="address">
+        <div class="form-group mb-3">
+            <label class="form-label">city</label>
+            <input type="text" formControlName="city" class="form-control" required>
+            
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">state</label>
+            <input type="text" formControlName="state" class="form-control" required>
+            
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label">pincode</label>
+            <input type="text" formControlName="pincode" class="form-control" required>
+            
+        </div>
+
+        <input (click)="displayValues()" type="submit" class="btn btn-primary" name="display" value="Display">
+    </div>
+
+
+    </div>
+</div>
+
+       
+    </form>
+    <div>
+        {{registrationForm.value | json}}
+     </div>
+</div>
